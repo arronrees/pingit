@@ -41,3 +41,10 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Ping {
+    id: number;
+    url: string;
+    interval: number;
+    active: boolean;
+}
