@@ -16,8 +16,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/pings',
     },
     {
+        title: 'Ping Details',
+        href: `/pings/{ping}`,
+    },
+    {
         title: 'Edit Ping',
-        href: '/pings/{ping}create',
+        href: '/pings/{ping}/edit',
     },
 ];
 

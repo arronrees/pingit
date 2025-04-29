@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { intervals } from '@/lib/constants';
 import { Ping } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -15,15 +16,6 @@ type EditPing = {
 };
 
 export default function EditPingForm({ ping }: { ping: Ping }) {
-    const intervals = [
-        { value: 3600, label: '1 hour' },
-        { value: 7200, label: '2 hours' },
-        { value: 10800, label: '3 hours' },
-        { value: 21600, label: '6 hours' },
-        { value: 43200, label: '12 hours' },
-        { value: 86400, label: '24 hours' },
-    ];
-
     const { data, setData, put, errors, processing } = useForm<EditPing>({
         url: ping.url,
         interval: ping.interval,

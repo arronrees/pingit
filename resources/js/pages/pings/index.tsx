@@ -2,6 +2,7 @@ import { Ping, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 import Heading from '@/components/heading';
+import PingList from '@/components/pings/PingList';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
@@ -30,14 +31,7 @@ export default function Pings({ pings }: { pings: Ping[] }) {
                 <Separator />
 
                 <div className="mt-6">
-                    <div>
-                        {pings &&
-                            pings.map((ping) => (
-                                <div key={ping.id}>
-                                    <Link href={`/pings/${ping.id}`}>{ping.url}</Link>
-                                </div>
-                            ))}
-                    </div>
+                    <div>{pings && <PingList pings={pings} />}</div>
                 </div>
             </div>
         </AppLayout>
