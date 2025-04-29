@@ -142,3 +142,14 @@ test('ping can be updated', function () {
 });
 
 // ping can be deleted
+test('ping can be deleted', function () {
+    $user = User::factory()->create();
+    $ping = Ping::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $this->actingAs($user)
+        ->delete(route('pings.destroy', $ping->id))
+        ->assertRedirect(route('pings.index'))
+        ->assertSessionHas('success', 'Ping deleted successfully.');
+});

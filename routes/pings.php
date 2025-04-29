@@ -10,4 +10,5 @@ Route::controller(PingController::class)->middleware('auth')->group(function () 
   Route::post('/pings',  'store')->name('pings.store');
   Route::get('/pings/{ping}/edit',  'edit')->name('pings.edit');
   Route::put('/pings/{ping}', 'update')->name('pings.update');
+  Route::delete('/pings/{ping}', 'destroy')->name('pings.destroy');
 });
