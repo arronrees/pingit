@@ -2,6 +2,7 @@ import { Ping, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 import Heading from '@/components/heading';
+import DeletePingForm from '@/components/pings/DeletePingForm';
 import EditPingForm from '@/components/pings/EditPingForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -43,6 +44,10 @@ export default function EditPing({ ping }: { ping: Ping }) {
                             <EditPingForm ping={ping} />
                         </CardContent>
                     </Card>
+                </div>
+
+                <div className="mt-6">
+                    <DeletePingForm ping={ping} />
                 </div>
             </div>
         </AppLayout>

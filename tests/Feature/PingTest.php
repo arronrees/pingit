@@ -149,7 +149,7 @@ test('ping can be deleted', function () {
     ]);
 
     $this->actingAs($user)
-        ->delete(route('pings.destroy', $ping->id))
+        ->delete(route('pings.destroy', $ping->id), ['deletionText' => 'DELETE'])
         ->assertRedirect(route('pings.index'))
         ->assertSessionHas('success', 'Ping deleted successfully.');
 });

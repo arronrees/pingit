@@ -57,7 +57,7 @@ export default function EditPingForm({ ping }: { ping: Ping }) {
             <div className="grid gap-2">
                 <Label htmlFor="interval">
                     Interval
-                    <span className="text-muted-foreground ml-2">(seconds)</span>
+                    <span className="text-muted-foreground">(seconds)</span>
                 </Label>
 
                 <Select onValueChange={(val) => setData('interval', parseInt(val))}>

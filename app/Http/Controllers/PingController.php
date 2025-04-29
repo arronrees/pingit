@@ -64,8 +64,10 @@ class PingController extends Controller
         return redirect()->route('pings.show', $ping->id)->with('success', 'Ping updated successfully.');
     }
 
-    public function destroy(Ping $ping)
+    public function destroy(Ping $ping, Request $request)
     {
+        $request->validate(['deletionText' => ['required', Rule::in(['DELETE'])]]);
+
         $ping->delete();
 
         return redirect()->route('pings.index')->with('success', 'Ping deleted successfully.');
