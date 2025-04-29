@@ -19,7 +19,7 @@ class PingFactory extends Factory
     {
         return [
             'url' => fake()->url(),
-            'interval' => fake()->randomElement([1800, 3600, 7200, 10800, 21600, 43200, 86400]),
+            'interval' => fake()->randomElement(['3600', '7200', '10800', '21600', '43200', '86400']),
             'active' => true,
             'user_id' => User::factory(),
         ];

@@ -6,9 +6,6 @@ use App\Models\User;
 use Illuminate\Testing\Assert;
 use Inertia\Testing\AssertableInertia;
 
-// TODO 
-// - inertial rendering for all routes
-
 // ping index page can be accessed
 test('ping index page can be accessed and shows user pings', function () {
     $user = User::factory()->create();
@@ -69,7 +66,32 @@ test('ping show page can be accessed and shows ping details', function () {
 });
 
 // ping create page can be accessed
+test('ping create page can be accessed and shows ping form', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get(route('pings.create'))
+        ->assertOk(200)
+        ->assertInertia(
+            fn(AssertableInertia $page) =>
+            $page
+                ->component('pings/create')
+        );
+});
+
 // ping can be created
+test('ping can be created', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->post(route('pings.store'), [
+            'url' => 'https://example.com',
+            'interval' => 3600,
+            'active' => true,
+        ])
+        ->assertRedirect(route('pings.index'))
+        ->assertSessionHas('success', 'Ping created successfully.');
+});
 
 // ping update page can be accessed
 // ping can be updated

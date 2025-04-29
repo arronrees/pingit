@@ -16,6 +16,7 @@ class Ping extends Model
         'url',
         'interval',
         'active',
+        'user_id'
     ];
 
     protected function casts(): array
