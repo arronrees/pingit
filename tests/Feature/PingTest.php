@@ -94,6 +94,51 @@ test('ping can be created', function () {
 });
 
 // ping update page can be accessed
+test('ping update page can be accessed and shows update form', function () {
+    $user = User::factory()->create();
+
+    $ping = Ping::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $checks = PingCheck::factory(10)->create([
+        'ping_id' => $ping->id,
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('pings.edit', $ping->id))
+        ->assertOk(200)
+        ->assertInertia(
+            fn(AssertableInertia $page) =>
+            $page
+                ->component('pings/edit')
+                ->has(
+                    'ping',
+                    fn(AssertableInertia $page) => $page
+                        ->where('id', $ping->id)
+                        ->where('url', $ping->url)
+                        ->where('interval', $ping->interval)
+                        ->where('active', $ping->active)
+                        ->etc()
+                )
+        );
+});
+
 // ping can be updated
+test('ping can be updated', function () {
+    $user = User::factory()->create();
+    $ping = Ping::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $this->actingAs($user)
+        ->put(route('pings.update', $ping->id), [
+            'url' => 'https://example.com',
+            'interval' => 3600,
+            'active' => false,
+        ])
+        ->assertRedirect(route('pings.show', $ping->id))
+        ->assertSessionHas('success', 'Ping updated successfully.');
+});
 
 // ping can be deleted

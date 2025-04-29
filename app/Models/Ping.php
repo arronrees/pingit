@@ -23,6 +23,7 @@ class Ping extends Model
     {
         return [
             'active' => 'boolean',
+            'interval' => 'integer',
         ];
     }
 

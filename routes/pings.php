@@ -8,4 +8,6 @@ Route::controller(PingController::class)->middleware('auth')->group(function () 
   Route::get('/pings/create',  'create')->name('pings.create');
   Route::get('/pings/{ping}',  'show')->name('pings.show');
   Route::post('/pings',  'store')->name('pings.store');
+  Route::get('/pings/{ping}/edit',  'edit')->name('pings.edit');
+  Route::put('/pings/{ping}', 'update')->name('pings.update');
 });

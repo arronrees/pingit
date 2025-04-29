@@ -48,3 +48,29 @@ export interface Ping {
     interval: number;
     active: boolean;
 }
+
+export interface PingCheck {
+    id: number;
+    status: number;
+    time_checked: string;
+    ping_id: number;
+}
+
+export interface PingCheckRetry {
+    id: number;
+    status: number;
+    time_checked: string;
+    ping_check_id: number;
+}
+
+export interface PingWithChecks extends Ping {
+    checks: PingCheck[];
+}
+
+export interface PingWithChecksAndRetries extends PingWithChecks {
+    retries: PingCheckRetry[];
+}
+
+export interface PingCheckWithRetries extends PingCheck {
+    retries: PingCheckRetry[];
+}
