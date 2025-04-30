@@ -3,7 +3,6 @@ import { intervals } from '@/lib/constants';
 import { getFavicon } from '@/lib/utils';
 import { Ping } from '@/types';
 import { Link } from '@inertiajs/react';
-import { useState } from 'react';
 import { Button } from '../ui/button';
 
 export default function PingList({ pings }: { pings: Ping[] }) {
@@ -14,7 +13,7 @@ export default function PingList({ pings }: { pings: Ping[] }) {
                     <Card className="hover:bg-muted/50 dark:hover:bg-muted/25">
                         <CardHeader className="flex gap-2">
                             <span className="flex h-[1lh] w-[1lh] items-center justify-center">
-                                <Img src={getFavicon(ping.url) ?? undefined} />
+                                <img src={getFavicon(ping.url) ?? undefined} width={16} height={16} className="size-5 object-contain" alt="favicon" />
                             </span>
                             <div className="flex flex-col gap-2">
                                 <CardTitle className="flex items-start gap-2">
@@ -32,23 +31,5 @@ export default function PingList({ pings }: { pings: Ping[] }) {
                 </Link>
             ))}
         </div>
-    );
-}
-
-function Img({ src }: { src?: string }) {
-    const [isBroken, setIsBroken] = useState(false);
-
-    function handleError() {
-        setIsBroken(true);
-    }
-
-    if (isBroken) {
-        return <span className="block w-5"></span>;
-    }
-
-    return (
-        <picture>
-            <img src={src} onError={handleError} width={16} height={16} className="size-5 object-contain" alt="favicon" />
-        </picture>
     );
 }

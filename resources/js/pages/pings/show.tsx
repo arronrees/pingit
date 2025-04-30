@@ -2,10 +2,16 @@ import { PingWithChecksAndRetries, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 
 import Heading from '@/components/heading';
+import PingChecks from '@/components/pings/PingChecks';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
+import { intervals } from '@/lib/constants';
+import { getFavicon } from '@/lib/utils';
+import dayjs from 'dayjs';
 import { ChevronLeft } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,6 +25,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
+    const [nextPing, setNextPing] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (ping.checks.length > 0) {
+            const lastCheck = dayjs(ping.checks[0].time_checked);
+            const interval = ping.interval;
+
+            setNextPing(Math.round((lastCheck.diff() / 1000 + interval) / 60));
+        }
+    }, [ping]);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Ping details" />
@@ -41,8 +58,39 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
 
                 <Separator />
 
-                <div className="mt-6">
-                    <div>{ping && ping.url}</div>
+                <div className="mt-6 flex flex-col gap-4">
+                    <Card>
+                        <CardHeader className="flex gap-2">
+                            <span className="flex h-[1lh] w-[1lh] items-center justify-center">
+                                <img src={getFavicon(ping.url) ?? undefined} width={16} height={16} className="size-5 object-contain" alt="favicon" />
+                            </span>
+                            <div className="flex flex-col gap-2">
+                                <CardTitle className="flex items-start gap-2">
+                                    <span className="">{ping.url.replace(/^https?:\/\//, '')}</span>
+                                </CardTitle>
+                                <CardDescription className="flex flex-col gap-1">
+                                    <span>Pinging every {intervals.find((i) => i.value === ping.interval)?.label}</span>
+                                    <span>
+                                        Next ping scheduled in {nextPing} {nextPing && nextPing < 2 ? 'minute' : 'minutes'}
+                                    </span>
+                                </CardDescription>
+                            </div>
+                        </CardHeader>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex items-end gap-2">
+                            <div className="flex flex-col gap-2">
+                                <CardTitle>Previous Checks</CardTitle>
+                                <CardDescription>View previous checks and their results</CardDescription>
+                            </div>
+                            <Button variant="secondary" className="ml-auto" asChild size="sm">
+                                <Link href={`/pings/${ping.id}/checks`}>View All</Link>
+                            </Button>
+                        </CardHeader>
+                        <CardContent>
+                            <PingChecks checks={ping.checks} />
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </AppLayout>

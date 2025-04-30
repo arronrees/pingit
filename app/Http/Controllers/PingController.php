@@ -19,7 +19,7 @@ class PingController extends Controller
 
     public function show(Ping $ping)
     {
-        $ping->load('checks');
+        $ping->load(['checks' => fn($query) => $query->orderBy('time_checked', 'desc')->take(10)]);
 
         return Inertia::render('pings/show', ['ping' => $ping]);
     }
