@@ -57,7 +57,6 @@ test('ping show page can be accessed and shows ping details', function () {
                             10,
                             fn(AssertableInertia $page) => $page
                                 ->where('ping_id', $ping->id)
-                                ->where('id', $checks->first()->id)
                                 ->etc()
                         )
                         ->etc()

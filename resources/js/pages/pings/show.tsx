@@ -71,7 +71,7 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
                                 <CardDescription className="flex flex-col gap-1">
                                     <span>Pinging every {intervals.find((i) => i.value === ping.interval)?.label}</span>
                                     <span>
-                                        Next ping scheduled in {nextPing} {nextPing && nextPing < 2 ? 'minute' : 'minutes'}
+                                        Next ping scheduled in {nextPing} {nextPing && nextPing === 1 ? 'minute' : 'minutes'}
                                     </span>
                                 </CardDescription>
                             </div>
@@ -81,7 +81,7 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
                         <CardHeader className="flex items-end gap-2">
                             <div className="flex flex-col gap-2">
                                 <CardTitle>Previous Checks</CardTitle>
-                                <CardDescription>View previous checks and their results</CardDescription>
+                                <CardDescription>View 10 latest checks and their results</CardDescription>
                             </div>
                             <Button variant="secondary" className="ml-auto" asChild size="sm">
                                 <Link href={`/pings/${ping.id}/checks`}>View All</Link>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PingCheckController;
 use App\Http\Controllers\PingController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,4 +12,8 @@ Route::controller(PingController::class)->middleware('auth')->group(function () 
   Route::get('/pings/{ping}/edit',  'edit')->name('pings.edit');
   Route::put('/pings/{ping}', 'update')->name('pings.update');
   Route::delete('/pings/{ping}', 'destroy')->name('pings.destroy');
+});
+
+Route::controller(PingCheckController::class)->middleware('auth')->group(function () {
+  Route::get('/pings/{ping}/checks', 'index')->name('checks.index');
 });
