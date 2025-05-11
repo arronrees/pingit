@@ -68,12 +68,16 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
                                 <CardTitle className="flex items-start gap-2">
                                     <span className="">{ping.url.replace(/^https?:\/\//, '')}</span>
                                 </CardTitle>
-                                <CardDescription className="flex flex-col gap-1">
-                                    <span>Pinging every {intervals.find((i) => i.value === ping.interval)?.label}</span>
-                                    <span>
-                                        Next ping scheduled in {nextPing} {nextPing && nextPing === 1 ? 'minute' : 'minutes'}
-                                    </span>
-                                </CardDescription>
+                                {ping.active ? (
+                                    <CardDescription className="flex flex-col gap-1">
+                                        <span>Pinging every {intervals.find((i) => i.value === ping.interval)?.label}</span>
+                                        <span>
+                                            Next ping scheduled in {nextPing} {nextPing && nextPing === 1 ? 'minute' : 'minutes'}
+                                        </span>
+                                    </CardDescription>
+                                ) : (
+                                    <CardDescription>Pinging currently paused. Please activate ping to resume.</CardDescription>
+                                )}
                             </div>
                         </CardHeader>
                     </Card>

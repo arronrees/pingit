@@ -11,8 +11,8 @@ class PingCheckController extends Controller
 {
     public function index(Ping $ping)
     {
-        $checks = PingCheck::where('ping_id', $ping->id)->orderBy('time_checked', 'desc')->get();
+        $checks = PingCheck::where('ping_id', $ping->id)->orderBy('time_checked', 'desc')->simplePaginate(15);
 
-        return Inertia::render('checks/index', ['checks' => $checks, 'ping' => $ping]);
+        return Inertia::render('checks/index', ['data' => $checks, 'ping' => $ping]);
     }
 }

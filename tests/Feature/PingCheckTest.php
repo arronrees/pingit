@@ -13,7 +13,7 @@ test('ping checks page can be accessed', function () {
   $ping = Ping::factory()->create([
     'user_id' => $user->id,
   ]);
-  $checks = PingCheck::factory(10)->create(['ping_id' => $ping->id]);
+  $checks = PingCheck::factory(50)->create(['ping_id' => $ping->id]);
 
   $this->actingAs($user)
     ->get(route('checks.index', $ping->id))
@@ -22,9 +22,10 @@ test('ping checks page can be accessed', function () {
       fn(AssertableInertia $page) =>
       $page
         ->component('checks/index')
-        ->has('checks', 10)
-        ->where('checks.0.ping_id', $checks->first()->ping_id)
+        ->has('data')
+        ->where('data.data.0.ping_id', $checks->first()->ping_id)
         ->has('ping')
         ->where('ping.id', $ping->id)
+        ->has('data.data', 15)
     );
 });
