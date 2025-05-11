@@ -16,4 +16,5 @@ Route::controller(PingController::class)->middleware('auth')->group(function () 
 
 Route::controller(PingCheckController::class)->middleware('auth')->group(function () {
   Route::get('/pings/{ping}/checks', 'index')->name('checks.index');
+  Route::get('/pings/{ping}/checks/{check}', 'show')->name('checks.show');
 });

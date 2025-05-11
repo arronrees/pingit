@@ -54,6 +54,7 @@ export interface PingCheck {
     status: number;
     time_checked: string;
     ping_id: number;
+    ping: Ping;
 }
 
 export interface PingCheckRetry {

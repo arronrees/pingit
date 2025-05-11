@@ -61,12 +61,12 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
                 <div className="mt-6 flex flex-col gap-4">
                     <Card>
                         <CardHeader className="flex gap-2">
-                            <span className="flex h-[1lh] w-[1lh] items-center justify-center">
-                                <img src={getFavicon(ping.url) ?? undefined} width={16} height={16} className="size-5 object-contain" alt="favicon" />
+                            <span className="flex h-4 w-4 items-center justify-center">
+                                <img src={getFavicon(ping.url) ?? undefined} width={16} height={16} className="size-4 object-contain" alt="favicon" />
                             </span>
                             <div className="flex flex-col gap-2">
                                 <CardTitle className="flex items-start gap-2">
-                                    <span className="">{ping.url.replace(/^https?:\/\//, '')}</span>
+                                    <span>{ping.url.replace(/^https?:\/\//, '')}</span>
                                 </CardTitle>
                                 {ping.active ? (
                                     <CardDescription className="flex flex-col gap-1">

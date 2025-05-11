@@ -18,7 +18,7 @@ class PingCheck extends Model
         'ping_id',
     ];
 
-    public function Ping(): BelongsTo
+    public function ping(): BelongsTo
     {
         return $this->belongsTo(Ping::class);
     }

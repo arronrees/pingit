@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
+import { getFavicon } from '@/lib/utils';
 import { Ping, PingCheck, SimplePaginatedResponse, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
@@ -41,7 +42,20 @@ export default function Checks({ data, ping }: { data: SimplePaginatedResponse<P
 
                 <Separator />
 
-                <div className="mt-6">
+                <div className="mt-6 flex flex-col gap-4">
+                    <Card>
+                        <CardHeader className="flex gap-2">
+                            <span className="flex h-4 w-4 items-center justify-center">
+                                <img src={getFavicon(ping.url) ?? undefined} width={16} height={16} className="size-4 object-contain" alt="favicon" />
+                            </span>
+                            <div className="flex flex-col gap-2">
+                                <CardTitle className="flex items-start gap-2">
+                                    <span>{ping.url.replace(/^https?:\/\//, '')}</span>
+                                </CardTitle>
+                            </div>
+                        </CardHeader>
+                    </Card>
+
                     <Card>
                         <CardHeader>
                             <CardTitle>Previous Checks</CardTitle>
