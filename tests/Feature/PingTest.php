@@ -10,7 +10,7 @@ use Inertia\Testing\AssertableInertia;
 test('ping index page can be accessed and shows user pings', function () {
     $user = User::factory()->create();
 
-    $pings = Ping::factory(5)->create([
+    $pings = Ping::factory(40)->create([
         'user_id' => $user->id,
     ]);
 
@@ -21,8 +21,18 @@ test('ping index page can be accessed and shows user pings', function () {
             fn(AssertableInertia $page) =>
             $page
                 ->component('pings/index')
-                ->has('pings', 5)
-                ->where('pings.0.id', $pings->first()->id)
+                ->has(
+                    'data',
+                    fn(AssertableInertia $page) => $page
+                        ->has(
+                            'data',
+                            15,
+                            fn(AssertableInertia $page) => $page
+                                ->where('user_id', $user->id)
+                                ->etc()
+                        )
+                        ->etc()
+                )->etc()
         );
 });
 

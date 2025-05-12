@@ -1,11 +1,11 @@
-import { Ping, type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
-
+import AppPagination from '@/components/app-pagination';
 import Heading from '@/components/heading';
 import PingList from '@/components/pings/PingList';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
+import { PaginatedResponse, Ping, type BreadcrumbItem } from '@/types';
+import { Head, Link } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -14,7 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Pings({ pings }: { pings: Ping[] }) {
+export default function Pings({ data }: { data: PaginatedResponse<Ping> }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Your Pings" />
@@ -31,7 +31,11 @@ export default function Pings({ pings }: { pings: Ping[] }) {
                 <Separator />
 
                 <div className="mt-6">
-                    <div>{pings && <PingList pings={pings} />}</div>
+                    <div>{data.data && <PingList pings={data.data} />}</div>
+                </div>
+
+                <div className="mt-6">
+                    <AppPagination<Ping> data={data} />
                 </div>
             </div>
         </AppLayout>

@@ -12,9 +12,9 @@ class PingController extends Controller
 {
     public function index()
     {
-        $pings = Ping::where('user_id', Auth::user()->id)->get();
+        $pings = Ping::where('user_id', Auth::user()->id)->paginate(15);
 
-        return Inertia::render('pings/index', ['pings' => $pings]);
+        return Inertia::render('pings/index', ['data' => $pings]);
     }
 
     public function show(Ping $ping)

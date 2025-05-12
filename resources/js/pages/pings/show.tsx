@@ -10,7 +10,7 @@ import AppLayout from '@/layouts/app-layout';
 import { intervals } from '@/lib/constants';
 import { getFavicon } from '@/lib/utils';
 import dayjs from 'dayjs';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -67,13 +67,18 @@ export default function ShowPing({ ping }: { ping: PingWithChecksAndRetries }) {
                             <div className="flex flex-col gap-2">
                                 <CardTitle className="flex items-start gap-2">
                                     <span>{ping.url.replace(/^https?:\/\//, '')}</span>
+                                    <a href={ping.url} target="_blank" rel="noreferrer noopener">
+                                        <ExternalLink className="size-4" />
+                                    </a>
                                 </CardTitle>
                                 {ping.active ? (
                                     <CardDescription className="flex flex-col gap-1">
                                         <span>Pinging every {intervals.find((i) => i.value === ping.interval)?.label}</span>
-                                        <span>
-                                            Next ping scheduled in {nextPing} {nextPing && nextPing === 1 ? 'minute' : 'minutes'}
-                                        </span>
+                                        {nextPing && (
+                                            <span>
+                                                Next ping scheduled in {nextPing} {nextPing === 1 ? 'minute' : 'minutes'}
+                                            </span>
+                                        )}
                                     </CardDescription>
                                 ) : (
                                     <CardDescription>Pinging currently paused. Please activate ping to resume.</CardDescription>

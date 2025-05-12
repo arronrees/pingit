@@ -1,12 +1,12 @@
+import AppPagination from '@/components/app-pagination';
 import Heading from '@/components/heading';
 import PingChecks from '@/components/pings/PingChecks';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { getFavicon } from '@/lib/utils';
-import { Ping, PingCheck, SimplePaginatedResponse, type BreadcrumbItem } from '@/types';
+import { PaginatedResponse, Ping, PingCheck, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
 
@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Checks({ data, ping }: { data: SimplePaginatedResponse<PingCheck>; ping: Ping }) {
+export default function Checks({ data, ping }: { data: PaginatedResponse<PingCheck>; ping: Ping }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Ping Checks" />
@@ -67,20 +67,7 @@ export default function Checks({ data, ping }: { data: SimplePaginatedResponse<P
                         {(data.next_page_url || data.prev_page_url) && (
                             <CardFooter className="flex justify-between gap-4">
                                 <div>
-                                    <Pagination>
-                                        <PaginationContent>
-                                            {data.prev_page_url && (
-                                                <PaginationItem>
-                                                    <PaginationPrevious href={data.prev_page_url ?? ''} />
-                                                </PaginationItem>
-                                            )}
-                                            {data.next_page_url && (
-                                                <PaginationItem>
-                                                    <PaginationNext href={data.next_page_url ?? ''} />
-                                                </PaginationItem>
-                                            )}
-                                        </PaginationContent>
-                                    </Pagination>
+                                    <AppPagination<Ping> data={data} />
                                 </div>
                                 <div className="text-xs font-bold tracking-wider uppercase">Page {data.current_page}</div>
                             </CardFooter>

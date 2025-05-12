@@ -51,7 +51,6 @@ function PaginationLink({
 }: PaginationLinkProps) {
   return (
     <Link
-      preserveScroll
       href={props.href || "#"}
       aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
@@ -82,6 +81,40 @@ function PaginationPrevious({
     >
       <ChevronLeftIcon />
       <span className="hidden sm:block">Previous</span>
+    </PaginationLink>
+  )
+}
+
+function PaginationFirst({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) {
+  return (
+    <PaginationLink
+      aria-label="Go to first page"
+      size="default"
+      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      {...props}
+    >
+      <ChevronLeftIcon />
+      <span className="hidden sm:block">First</span>
+    </PaginationLink>
+  )
+}
+
+function PaginationLast({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) {
+  return (
+    <PaginationLink
+      aria-label="Go to last page"
+      size="default"
+      className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      {...props}
+    >
+      <span className="hidden sm:block">Last</span>
+      <ChevronRightIcon />
     </PaginationLink>
   )
 }
@@ -128,4 +161,6 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
+  PaginationFirst,
+  PaginationLast
 }
