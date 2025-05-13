@@ -16,7 +16,23 @@ return new class extends Migration
             $table->timestamps();
 
             $table->text('url');
-            $table->enum('interval', ['3600', '7200', '10800', '21600', '43200', '86400']);
+            $table->enum('interval', [
+                '60',
+                '120',
+                '180',
+                '240',
+                '300',
+                '600',
+                '900',
+                '1800',
+                '2700',
+                '3600',
+                '7200',
+                '10800',
+                '21600',
+                '43200',
+                '86400'
+            ]);
             $table->boolean('active')->default(true);
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

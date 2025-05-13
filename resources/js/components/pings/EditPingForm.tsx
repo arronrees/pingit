@@ -25,9 +25,7 @@ export default function EditPingForm({ ping }: { ping: Ping }) {
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log(data);
         put(route('pings.update', ping.id));
-        console.log(errors);
     };
 
     return (
@@ -57,12 +55,11 @@ export default function EditPingForm({ ping }: { ping: Ping }) {
                         <SelectValue placeholder={intervals.find((i) => i.value === data.interval)?.label ?? 'Select interval'} />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="3600">1 hour</SelectItem>
-                        <SelectItem value="7200">2 hours</SelectItem>
-                        <SelectItem value="10800">3 hours</SelectItem>
-                        <SelectItem value="21600">6 hours</SelectItem>
-                        <SelectItem value="43200">12 hours</SelectItem>
-                        <SelectItem value="86400">24 hours</SelectItem>
+                        {intervals.map((interval) => (
+                            <SelectItem key={interval.value} value={interval.value.toString()}>
+                                {interval.label}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 

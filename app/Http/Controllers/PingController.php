@@ -31,7 +31,23 @@ class PingController extends Controller
 
     public function store(Request $request)
     {
-        $validIntervals = [3600, 7200, 10800, 21600, 43200, 86400];
+        $validIntervals = [
+            60,
+            120,
+            180,
+            240,
+            300,
+            600,
+            900,
+            1800,
+            2700,
+            3600,
+            7200,
+            10800,
+            21600,
+            43200,
+            86400,
+        ];
 
         $validated = $request->validate([
             'url' => ['required', 'url'],
@@ -51,7 +67,23 @@ class PingController extends Controller
 
     public function update(Ping $ping, Request $request)
     {
-        $validIntervals = [3600, 7200, 10800, 21600, 43200, 86400];
+        $validIntervals = [
+            60,
+            120,
+            180,
+            240,
+            300,
+            600,
+            900,
+            1800,
+            2700,
+            3600,
+            7200,
+            10800,
+            21600,
+            43200,
+            86400,
+        ];
 
         $validated = $request->validate([
             'url' => ['required', 'url'],
