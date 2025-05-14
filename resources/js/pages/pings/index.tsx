@@ -15,7 +15,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Pings({ data }: { data: PaginatedResponse<Ping> }) {
-    console.log(data);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Your Pings" />
